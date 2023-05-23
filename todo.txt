@@ -1,0 +1,23 @@
+Todo
+    -DONE Create virtual env
+    -DONE Install and setup
+    -DONE Init database, super user, test run
+    -DONE Create core app for base pages
+    -DONE Create app for userprofiles
+    -DONE Create app for products
+        -DONE Add category model
+    -FIX FRONTPAGE.HTML List out newests products on the front pages
+    -DONE Product detail view
+    -DONE Category view
+    -DONE Show vendor on product detail page
+    -DONE Add images to the products
+    -DONE Vendor detail page
+    -DONE Make it possible to sign up, log in and log out
+    -DONE Create my account page
+    -DONE Simple search
+    -Admin pages for the vendors
+    -Add product to the cart
+    -View cart
+    -Checkout
+    -Implement payment gateway
+    -Deploy project
