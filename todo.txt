@@ -15,9 +15,22 @@ Todo
     -DONE Make it possible to sign up, log in and log out
     -DONE Create my account page
     -DONE Simple search
-    -Admin pages for the vendors
-    -Add product to the cart
-    -View cart
-    -Checkout
+    -DONE Admin pages for the vendors
+    -DONE Add product to the cart
+    -DONE View cart
+    -DONE Make it possible to remove product from cart
+    -DONE Make it possible to increment/decrement products in the cart
+    -DONE Add thumbnails to the products
+    -DONE Fix the design on the cart page
+    -DONE Create a checkout page
+    -DONE Separate shoppers from vendors
+    -DONE Add cart button in menu
+    -DONE Checkout functionality
+    -DONE Vendors must be able to see their order
+    -DONE Only authenticated users can proceed to the checkout
     -Implement payment gateway
+    -Add validation to the checkout form
+    -Add settingsfile for production
+    -DONE Add requirements file
+    -DONE Add a robots file to the project
     -Deploy project
