@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Become vendor{% endblock %}
+
+{% block content %}
+    <div class="flex flex-col">
+        <h1 class="text-2xl">Become vendor</h1>
+
+        <form method="post" action=".">
+            {% csrf_token %}
+
+            <button type="submit" class="py-4 px-8 bg-indigo-800 text-white">Accept</button>
+        </form>
+    </div>
+{% endblock %}

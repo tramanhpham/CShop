@@ -11,7 +11,35 @@ from .models import Userprofile
 from store.forms import ProductForm
 from store.models import Product, OrderItem, Order
 
+@login_required
+def become_vendor(request):
+    """Become vendor.
+
+    Parameter: request
+
+    Return: My store
+
+    """ 
+
+    if request.method == 'POST':
+        user = request.user
+  
+        user.userprofile.is_vendor = True
+        user.userprofile.save()
+     
+        return redirect('my_store')
+    
+    return render(request, 'userprofile/become_vendor.html')
+
 def vendor_detail(request, pk):
+    """Vendor detail.
+
+    Parameter: request, pk
+
+    Return: Vendor detail
+
+    """ 
+
     user = User.objects.get(pk=pk)
     products = user.products.filter(status=Product.ACTIVE)
 
@@ -22,6 +50,14 @@ def vendor_detail(request, pk):
 
 @login_required
 def my_store(request):
+    """My store, login required.
+
+    Parameter: request
+
+    Return: My store
+
+    """ 
+    
     products = request.user.products.exclude(status=Product.DELETED)
     order_items = OrderItem.objects.filter(product__user=request.user)
 
@@ -32,6 +68,14 @@ def my_store(request):
 
 @login_required
 def my_store_order_detail(request, pk):
+    """My store order detail, login required.
+
+    Parameter: request, pk
+
+    Return: My store order detail
+
+    """ 
+    
     order = get_object_or_404(Order, pk=pk)
 
     return render(request, 'userprofile/my_store_order_detail.html', {
@@ -40,6 +84,14 @@ def my_store_order_detail(request, pk):
 
 @login_required
 def add_product(request):
+    """Add product, login required.
+
+    Parameter: request
+
+    Return: Add product
+
+    """ 
+    
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
 
@@ -64,6 +116,14 @@ def add_product(request):
 
 @login_required
 def edit_product(request, pk):
+    """Edit product, login required.
+
+    Parameter: request, pk
+
+    Return: Edit product
+
+    """ 
+    
     product = Product.objects.filter(user=request.user).get(pk=pk)
 
     if request.method == 'POST':
@@ -86,6 +146,14 @@ def edit_product(request, pk):
 
 @login_required
 def delete_product(request, pk):
+    """Delete product, login required.
+
+    Parameter: request, pk
+
+    Return: Delete product
+
+    """ 
+    
     product = Product.objects.filter(user=request.user).get(pk=pk)
     product.status = Product.DELETED
     product.save()
@@ -96,9 +164,25 @@ def delete_product(request, pk):
 
 @login_required
 def myaccount(request):
+    """My account, login required.
+
+    Parameter: request
+
+    Return: My account
+
+    """ 
+    
     return render(request, 'userprofile/myaccount.html')
 
 def signup(request):
+    """Sign up.
+
+    Parameter: request
+
+    Return: Signup
+
+    """ 
+    
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
 

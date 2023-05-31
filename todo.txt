@@ -34,3 +34,41 @@ Todo
     -DONE Add requirements file
     -DONE Add a robots file to the project
     -Deploy project
+
+
+
+    -DONE Tạo env ảo
+    -DONE Cài đặt và thiết lập
+    -XONG Cơ sở dữ liệu khởi tạo, siêu người dùng, chạy thử
+    -XONG Tạo ứng dụng cốt lõi cho các trang cơ sở
+    -XONG Tạo ứng dụng cho hồ sơ người dùng
+    -XONG Tạo app cho sản phẩm
+        -DONE Thêm mô hình danh mục
+    -FIX FRONTPAGE.HTML Liệt kê các sản phẩm mới nhất trên trang nhất
+    -XONG Xem chi tiết sản phẩm
+    -DONE Chế độ xem danh mục
+    -DONE Hiển thị nhà cung cấp trên trang chi tiết sản phẩm
+    -XONG Thêm hình ảnh vào sản phẩm
+    -DONE Trang chi tiết nhà cung cấp
+    -DONE Cho phép đăng ký, đăng nhập và đăng xuất
+    -XONG Tạo trang tài khoản của tôi
+    -DONE Tìm kiếm đơn giản
+    -XONG Trang quản trị cho các nhà cung cấp
+    -XONG Thêm sản phẩm vào giỏ hàng
+    -DONE Xem giỏ hàng
+    -DONE Cho phép xóa sản phẩm khỏi giỏ hàng
+    -DONE Cho phép tăng/giảm sản phẩm trong giỏ hàng
+    -XONG Thêm hình thu nhỏ vào sản phẩm
+    -DONE Sửa thiết kế trên trang giỏ hàng
+    -XONG Tạo một trang thanh toán
+    -DONE Tách người mua hàng khỏi nhà cung cấp
+    -XONG Thêm nút giỏ hàng vào menu
+    -XONG Chức năng thanh toán
+    -DONE Nhà cung cấp phải có thể nhìn thấy đơn đặt hàng của họ
+    -DONE Chỉ người dùng được xác thực mới có thể tiến hành thanh toán
+    -Triển khai cổng thanh toán
+    -Thêm xác thực vào biểu mẫu thanh toán
+    -Thêm tệp cài đặt cho sản xuất
+    -DONE Thêm tệp yêu cầu
+    -DONE Thêm tệp robot vào dự án
+    -Triển khai dự án

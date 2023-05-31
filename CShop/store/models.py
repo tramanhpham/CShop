@@ -7,6 +7,14 @@ from io import BytesIO
 from PIL import Image
 
 class Category(models.Model):
+    """View Category.
+
+    Attributes: title, slug
+
+    Return: title
+
+    """ 
+
     title = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50)
 
@@ -17,6 +25,14 @@ class Category(models.Model):
         return self.title
 
 class Product(models.Model):
+    """View Product.
+
+    Attributes: user, category, title, slug, description, price, image, thumbnail, created_at, updated_at, status
+
+    Methods: get display price, get thumbnail, make thumnail
+    
+    """ 
+
     DRAFT = 'draft'
     WAITING_APPROVAL = 'waitingapproval'
     ACTIVE = 'active'
@@ -75,6 +91,12 @@ class Product(models.Model):
         return thumbnail
 
 class Order(models.Model):
+    """Class Order.
+
+    Attributes: first name, last name, address, city, paid amout, is paid, created by , created at
+
+    """
+
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
@@ -85,6 +107,14 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 class OrderItem(models.Model):
+    """Class Order Item.
+
+    Attributes: order, product, price, quantity
+
+    Method: get display price
+
+    """
+
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name='items', on_delete=models.CASCADE)
     price = models.IntegerField()

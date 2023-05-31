@@ -7,18 +7,42 @@ from .forms import OrderForm
 from .models import Category, Product, Order, OrderItem
 
 def add_to_cart(request, product_id):
+    """Add to Cart.
+
+    Parameters: request, product id
+
+    Return: Cart view
+
+    """ 
+
     cart = Cart(request)
     cart.add(product_id)
 
     return redirect('cart_view')
 
 def remove_from_cart(request, product_id):
+    """Remove from Cart.
+
+    Parameters: request, product id
+
+    Return: Cart view
+
+    """ 
+
     cart = Cart(request)
     cart.remove(product_id)
 
     return redirect('cart_view')
 
 def change_quantity(request, product_id):
+    """Change quantity.
+
+    Parameters: request, product id
+
+    Return: Cart view
+
+    """ 
+
     action = request.GET.get('action', '')
 
     if action:
@@ -33,6 +57,14 @@ def change_quantity(request, product_id):
         return redirect('cart_view')
 
 def cart_view(request):
+    """Cart view.
+
+    Parameters: request
+
+    Return: Cart view
+
+    """ 
+
     cart = Cart(request)
 
     return render(request, 'store/cart_view.html', {
@@ -41,6 +73,14 @@ def cart_view(request):
 
 @login_required
 def checkout(request):
+    """Checkout require login.
+
+    Parameters: request
+
+    Return: Checkout
+
+    """ 
+
     cart = Cart(request)
 
     if request.method == 'POST':
@@ -77,6 +117,14 @@ def checkout(request):
     })
 
 def search(request):
+    """Search.
+
+    Parameters: request
+
+    Return: Search
+
+    """ 
+
     query = request.GET.get('query', '')
     products = Product.objects.filter(status=Product.ACTIVE).filter(Q(title__icontains=query) | Q(description__icontains=query))
 
@@ -86,6 +134,13 @@ def search(request):
     })
 
 def category_detail(request, slug):
+    """Category detail.
+
+    Parameters: request, slug
+
+    Return: Category detail
+    """ 
+
     category = get_object_or_404(Category, slug=slug)
     products = category.products.filter(status=Product.ACTIVE)
 
@@ -95,6 +150,14 @@ def category_detail(request, slug):
     })
 
 def product_detail(request, category_slug, slug):
+    """Product detail.
+
+    Parameters: request, category_slug, slug
+
+    Return: Product detail
+
+    """ 
+
     product = get_object_or_404(Product, slug=slug, status=Product.ACTIVE)
 
     return render(request, 'store/product_detail.html', {
