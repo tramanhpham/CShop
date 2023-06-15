@@ -7,32 +7,75 @@ from io import BytesIO
 from PIL import Image
 
 class Category(models.Model):
-    """View Category.
+    """
+    Represents a category.
 
-    Attributes: title, slug
+    Attributes:
+        title (CharField): The title of the category.
+        slug (SlugField): The slug field for the category's URL.
 
-    Return: title
+    Meta:
+        verbose_name_plural (str): The plural name for the category model.
 
-    """ 
+    Methods:
+        __str__(self): Returns a string representation of the category.
 
+    """
     title = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50)
 
     class Meta:
+        """
+        Metadata for the Category model.
+
+        Attributes:
+            verbose_name_plural (str): The plural name for the category model.
+
+        """
         verbose_name_plural = 'Categories'
 
     def __str__(self):
+        """
+        Returns a string representation of the category.
+
+        Returns:
+            str: The title of the category.
+
+        """
         return self.title
 
 class Product(models.Model):
-    """View Product.
+    """
+    Represents a product.
 
-    Attributes: user, category, title, slug, description, price, image, thumbnail, created_at, updated_at, status
+    Attributes:
+        DRAFT (str): Constant representing the draft status of a product.
+        WAITING_APPROVAL (str): Constant representing the waiting approval status of a product.
+        ACTIVE (str): Constant representing the active status of a product.
+        DELETED (str): Constant representing the deleted status of a product.
+        STATUS_CHOICES (tuple): Choices for the status field of a product.
+        user (ForeignKey): Foreign key to the User model representing the owner of the product.
+        category (ForeignKey): Foreign key to the Category model representing the category of the product.
+        title (CharField): The title of the product.
+        slug (SlugField): The slug field for the product's URL.
+        description (TextField): The description of the product.
+        price (IntegerField): The price of the product.
+        image (ImageField): The image of the product.
+        thumbnail (ImageField): The thumbnail image of the product.
+        created_at (DateTimeField): The date and time when the product was created.
+        updated_at (DateTimeField): The date and time when the product was last updated.
+        status (CharField): The status of the product.
 
-    Methods: get display price, get thumbnail, make thumnail
-    
-    """ 
+    Meta:
+        ordering (tuple): Specifies the default ordering for the products.
 
+    Methods:
+        __str__(self): Returns a string representation of the product.
+        get_display_price(self): Returns the display price of the product.
+        get_thumbnail(self): Returns the URL of the product's thumbnail image.
+        make_thumbnail(self, image, size=(300, 300)): Creates a thumbnail image for the product.
+
+    """
     DRAFT = 'draft'
     WAITING_APPROVAL = 'waitingapproval'
     ACTIVE = 'active'
@@ -58,15 +101,43 @@ class Product(models.Model):
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default=ACTIVE)
 
     class Meta:
+        """
+        Metadata for the Product model.
+
+        Attributes:
+            ordering (tuple): Specifies the default ordering for the products.
+
+        """
         ordering = ('-created_at',)
 
     def __str__(self):
+        """
+        Returns a string representation of the product.
+
+        Returns:
+            str: The title of the product.
+
+        """
         return self.title
 
     def get_display_price(self):
+        """
+        Returns the display price of the product.
+
+        Returns:
+            float: The display price of the product.
+
+        """
         return self.price / 100
 
     def get_thumbnail(self):
+        """
+        Returns the URL of the product's thumbnail image.
+
+        Returns:
+            str: The URL of the product's thumbnail image.
+
+        """
         if self.thumbnail:
             return self.thumbnail.url
         else:
@@ -79,6 +150,17 @@ class Product(models.Model):
                 return 'https://via.placeholder.com/240x240x.jpg'
 
     def make_thumbnail(self, image, size=(300, 300)):
+        """
+        Creates a thumbnail image for the product.
+
+        Args:
+            image (File): The original image file.
+            size (tuple): The desired size of the thumbnail image. Defaults to (300, 300).
+
+        Returns:
+            File: The thumbnail image file.
+
+        """
         img = Image.open(image)
         img.convert('RGB')
         img.thumbnail(size)
@@ -91,12 +173,20 @@ class Product(models.Model):
         return thumbnail
 
 class Order(models.Model):
-    """Class Order.
+    """
+    Represents an order.
 
-    Attributes: first name, last name, address, city, paid amout, is paid, created by , created at
+    Attributes:
+        first_name (CharField): The first name of the order's recipient.
+        last_name (CharField): The last name of the order's recipient.
+        address (CharField): The address of the order's recipient.
+        city (CharField): The city of the order's recipient.
+        paid_amount (IntegerField): The amount paid for the order. Can be blank and null.
+        is_paid (CharField): Indicates whether the order is paid or not.
+        created_by (ForeignKey): Foreign key to the User model representing the user who created the order.
+        created_at (DateTimeField): The date and time when the order was created.
 
     """
-
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
@@ -107,18 +197,32 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 class OrderItem(models.Model):
-    """Class Order Item.
+    """
+    Represents an item in an order.
 
-    Attributes: order, product, price, quantity
+    Attributes:
+        order (ForeignKey): Foreign key to the Order model representing the order that this item belongs to.
+        product (ForeignKey): Foreign key to the Product model representing the product associated with this item.
+        price (IntegerField): The price of the item.
+        quantity (IntegerField): The quantity of the item.
 
-    Method: get display price
+    Methods:
+        get_display_price(): Returns the display price of the item, which is the price divided by 100.
 
     """
-
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name='items', on_delete=models.CASCADE)
     price = models.IntegerField()
     quantity = models.IntegerField(default=1)
 
     def get_display_price(self):
+        """
+        Returns the display price of the item.
+
+        The display price is calculated by dividing the price by 100.
+
+        Returns:
+            float: The display price of the item.
+
+        """
         return self.price / 100

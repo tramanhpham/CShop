@@ -3,28 +3,43 @@ from django import forms
 from .models import Product, Order
 
 class OrderForm(forms.ModelForm):
-    """Form for create Order.
+    """
+    A form for creating an order.
 
-    Parameter: forms.ModelForm
-
-    Fields: first name, last name, address city
+    Attributes:
+        Meta (class): Inner class that defines the metadata for the form.
 
     """
-
     class Meta:
+        """
+        Metadata for the OrderForm.
+
+        Attributes:
+            model (Model): The model class associated with the form.
+            fields (list): The list of fields to include in the form.
+
+        """
         model = Order
         fields = ('first_name', 'last_name', 'address', 'city',)
 
 class ProductForm(forms.ModelForm):
-    """Form for create Product.
-
-    Parameter: forms.ModelForm
-
-    Fields: category, title, description, price, image
-    
     """
+    A form for creating or updating a product.
 
+    Attributes:
+        Meta (class): Inner class that defines the metadata for the form.
+
+    """
     class Meta:
+        """
+        Metadata for the ProductForm.
+
+        Attributes:
+            model (Model): The model class associated with the form.
+            fields (list): The list of fields to include in the form.
+            widgets (dict): Custom widgets for the form fields.
+
+        """
         model = Product
         fields = ('category', 'title', 'description', 'price', 'image',)
         widgets = {

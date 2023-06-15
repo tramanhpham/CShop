@@ -3,14 +3,16 @@ from django.shortcuts import render
 from store.models import Product
 
 def frontpage(request):
-    """List out newests products on the front pages.
-    
-    Parameter: request
+    """
+    Display the homepage with a list of active products.
 
-    Return: Frontpage
+    Parameters:
+        request (HttpRequest): The HttpRequest object representing the user's request.
+
+    Returns:
+        HttpResponse: The HttpResponse object containing the content of the homepage and the list of products.
 
     """
-
     products = Product.objects.filter(status=Product.ACTIVE)
     
     return render(request, 'core/frontpage.html', {
@@ -18,12 +20,14 @@ def frontpage(request):
     })
 
 def about(request):
-    """Simple about Page.
-    
-    Parameter: request
+    """
+    Display the about page.
 
-    Return: About page
+    Parameters:
+        request (HttpRequest): The HttpRequest object representing the user's request.
+
+    Returns:
+        HttpResponse: The HttpResponse object containing the content of the about page.
 
     """
-
     return render(request, 'core/about.html')
