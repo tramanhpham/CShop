@@ -204,18 +204,6 @@ def edit_product(request, pk):
 
 @login_required
 def delete_product(request, pk):
-
-    
-    product = Product.objects.filter(user=request.user).get(pk=pk)
-    product.status = Product.DELETED
-    product.save()
-
-    messages.success(request, 'The product was deleted!')
-
-    return redirect('mystore')
-
-@login_required
-def myaccount(request):
     """
     Deletes a product belonging to the authenticated user.
 
@@ -233,7 +221,23 @@ def myaccount(request):
     Raises:
         PermissionDenied: If the user is not authenticated or the product does not belong to the user.
 
-    """    
+    """        
+    product = Product.objects.filter(user=request.user).get(pk=pk)
+    product.status = Product.DELETED
+    product.save()
+
+    messages.success(request, 'The product was deleted!')
+
+    return redirect('mystore')
+
+@login_required
+def myaccount(request):
+    """
+    Render the 'myaccount' page for the authenticated user.
+
+    Returns:
+        HttpResponse: The rendered 'myaccount' template.
+    """
     return render(request, 'userprofile/myaccount.html')
 
 def signup(request):
