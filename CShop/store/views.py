@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 from .cart import Cart
 from .forms import OrderForm
-from .models import Category, Product, Order, OrderItem
+from .models import Category, Product, Order, OrderItem, Review
 
 def add_to_cart(request, product_id):
     """
@@ -219,6 +219,26 @@ def product_detail(request, category_slug, slug):
 
     """
     product = get_object_or_404(Product, slug=slug, status=Product.ACTIVE)
+
+    if request.method == 'POST':
+        rating = request.POST.get('rating', 5)
+        content = request.POST.get('content', '')
+
+        if content:
+            reviews = Review.objects.filter(created_by=request.user, product=product)
+
+            if reviews.count() > 0:
+                review = reviews.first()
+                review.rating = rating
+                review.content = content
+                review.save()
+            else:
+                review = Review.objects.create(
+                    product=product,
+                    rating=rating,
+                    content=content,
+                    created_by=request.user
+                )
 
     return render(request, 'store/product_detail.html', {
         'product': product

@@ -15,7 +15,7 @@
     </head>
 
     <body>
-        <nav class="mx-auto py-4 px-6 flex items-center justify-between bg-indigo-600">
+        <nav class="mx-auto py-4 px-6 flex items-center justify-between bg-neutral-950">
             <div class="logo">
                 <a href="/" class="text-2xl text-white">CShop</a>
             </div>
@@ -50,30 +50,42 @@
 
                 {% else %} 
                     <a href="{% url 'signup' %}" class="py-2 px-4 bg-indigo-800 text-white rounded-xl hover:bg-indigo-900">
-                        Signup
+                        Sign up
                     </a>
 
                     <a href="{% url 'login' %}" class="py-2 px-4 bg-indigo-800 text-white rounded-xl hover:bg-indigo-900">
-                        Login
+                        Log in
                     </a>
 
                 {% endif %}
             </div>
         </nav>
 
-        <div class="max-w-4xl mx-auto py-4 px-6">
+        <main class="max-w-4xl mx-auto py-4 px-6">
             {% block content %}
             {% endblock %}
-        </div> 
+        </main> 
+
+        <footer class="bg-neutral-950 text-neutral-50">
+            <div class="max-w-6xl mx-auto py-10 px-6 xl:px-0 md:flex justify-between">
+                <div class="footer-left mb-12 md:mb-0 text-neutral-50">
+                    <h2 class="mb-5 uppercase text-lg">About CShop</h2>
+
+                    <a href="{% url 'become_vendor' %}" class="hover:text-indigo-300">Become vendor</a>
+                </div>
+
+                <div class="footer-right">
+                    <h2 class="mb-5 uppercase text-lg">Social links</h2>
+
+                    <ul class="space-y-2">
+                        <li><a href="https://www.instagram.com/__pan.ana__/" class="hover:text-indigo-300">Instagram</a></li>
+                        <li><a href="https://www.facebook.com/profile.php?id=100024540936890" class="hover:text-indigo-300">Facebook</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
 
         {% block scripts %}
         {% endblock %}
     </body>
-
-
-    <footer class="mx-auto py-4 px-6 items-center justify-between bg-indigo-300">
-        <h3 class="text-xl">CShop</h3>
-
-        <a href="{% url 'become_vendor' %}">Become vendor</a>
-    </footer>
 </html>
