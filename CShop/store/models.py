@@ -171,6 +171,13 @@ class Product(models.Model):
         return thumbnail
 
     def get_rating(self):
+        """
+        Calculates and returns the average rating for the object.
+        
+        Returns:
+            float: The average rating, rounded to 2 decimal places.
+        
+        """
         reviews_total = 0
 
         for review in self.reviews.all():
@@ -237,6 +244,17 @@ class OrderItem(models.Model):
         return self.price / 100
 
 class Review(models.Model):
+    """
+    Represents a review for a product.
+
+    Fields:
+        product (ForeignKey): The product being reviewed.
+        rating (IntegerField): The rating given to the product.
+        content (TextField): The content of the review.
+        created_by (ForeignKey): The user who created the review.
+        created_at (DateTimeField): The date and time when the review was created.
+
+    """
     product = models.ForeignKey(Product, related_name='reviews', on_delete=models.CASCADE)
     rating = models.IntegerField(default=3)
     content = models.TextField()
